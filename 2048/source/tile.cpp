@@ -6,8 +6,7 @@ Tile::Tile()
 	: shape{}, font{}, text{}, type{ TileType::BLANK }, mergeable{ true }
 {
 	shape.setSize(TILE_SIZE);
-	font.loadFromFile("resource/arial.ttf");
-	text.setCharacterSize(64);
+	font.loadFromFile("resource/ClearSans-Bold.ttf");
 	text.setStyle(sf::Text::Bold);
 	changeType(TileType::BLANK);
 	updateView();
@@ -95,6 +94,7 @@ void Tile::updateText()
 		text.setString(std::to_string(static_cast<std::underlying_type_t<TileType>>(getType())));
 		text.setFillColor(FONT_COLORS.at(getType()));
 		text.setFont(font);
+		text.setCharacterSize(FONT_SIZES.at(getType()));
 
 		const auto bounds = text.getLocalBounds();
 		const auto box = shape.getSize();

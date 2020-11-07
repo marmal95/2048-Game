@@ -28,7 +28,8 @@ const std::unordered_map<TileType, sf::Color> TILES_COLORS
 	{ TileType::VALUE_128, sf::Color(237, 208, 115) },
 	{ TileType::VALUE_256, sf::Color(237, 204, 98) },
 	{ TileType::VALUE_512, sf::Color(237, 201, 80) },
-	{ TileType::VALUE_1024, sf::Color(237, 193, 63) }
+	{ TileType::VALUE_1024, sf::Color(237, 193, 63) },
+	{ TileType::VALUE_2048, sf::Color(237, 194, 46) },
 };
 
 const std::unordered_map<TileType, sf::Color> FONT_COLORS
@@ -42,7 +43,24 @@ const std::unordered_map<TileType, sf::Color> FONT_COLORS
 	{ TileType::VALUE_128, sf::Color(255, 255, 255) },
 	{ TileType::VALUE_256, sf::Color(255, 255, 255) },
 	{ TileType::VALUE_512, sf::Color(255, 255, 255) },
-	{ TileType::VALUE_1024, sf::Color(255, 255, 255) }
+	{ TileType::VALUE_1024, sf::Color(255, 255, 255) },
+	{ TileType::VALUE_2048, sf::Color(255, 255, 255) }
+};
+
+const std::unordered_map<TileType, uint32_t> FONT_SIZES
+{
+	{ TileType::BLANK, 0 },
+	{ TileType::VALUE_2, 64 },
+	{ TileType::VALUE_4, 64 },
+	{ TileType::VALUE_8, 64 },
+	{ TileType::VALUE_16, 56 },
+	{ TileType::VALUE_32, 56 },
+	{ TileType::VALUE_64, 56 },
+	{ TileType::VALUE_128, 48 },
+	{ TileType::VALUE_256, 48 },
+	{ TileType::VALUE_512, 48 },
+	{ TileType::VALUE_1024, 42 },
+	{ TileType::VALUE_2048, 42 }
 };
 
 enum class Direction
