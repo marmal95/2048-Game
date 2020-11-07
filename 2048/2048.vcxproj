@@ -152,30 +152,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\draw_system.cpp" />
-    <ClCompile Include="include\ecs_game.cpp" />
-    <ClCompile Include="include\logic_system.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="source\animate_system.cpp" />
-    <ClCompile Include="source\app.cpp" />
-    <ClCompile Include="source\grid.cpp" />
-    <ClCompile Include="source\tile.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\animated.hpp" />
-    <ClInclude Include="include\move_finished.hpp" />
-    <ClInclude Include="include\move_trigger.hpp" />
     <ClInclude Include="include\animate_system.hpp" />
     <ClInclude Include="include\app.hpp" />
     <ClInclude Include="include\defs.hpp" />
     <ClInclude Include="include\draw_system.hpp" />
     <ClInclude Include="include\ecs_game.hpp" />
+    <ClInclude Include="include\game_finished.hpp" />
     <ClInclude Include="include\grid.hpp" />
     <ClInclude Include="include\logic_system.hpp" />
+    <ClInclude Include="include\move_finished.hpp" />
+    <ClInclude Include="include\move_trigger.hpp" />
     <ClInclude Include="include\resource_manager.hpp" />
-    <ClInclude Include="include\tile_position_finder.hpp" />
     <ClInclude Include="include\tile.hpp" />
+    <ClInclude Include="include\tile_position_finder.hpp" />
     <ClInclude Include="include\tile_type.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\animate_system.cpp" />
+    <ClCompile Include="source\app.cpp" />
+    <ClCompile Include="source\draw_system.cpp" />
+    <ClCompile Include="source\ecs_game.cpp" />
+    <ClCompile Include="source\grid.cpp" />
+    <ClCompile Include="source\logic_system.cpp" />
+    <ClCompile Include="source\tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

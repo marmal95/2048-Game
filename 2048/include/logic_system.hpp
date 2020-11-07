@@ -6,6 +6,7 @@
 #include <optional>
 #include <random>
 #include "move_finished.hpp"
+#include "game_finished.hpp"
 #include "defs.hpp"
 
 class Grid;
@@ -23,7 +24,7 @@ public:
 private:
     void initialize(entityx::EntityManager&);
     void update(entityx::EntityManager&, entityx::EventManager&);
-    void handleMoveFinishedEvent(Grid&);
+    void handleMoveFinishedEvent(entityx::EventManager&, Grid&);
     void handleMoveEvents(entityx::EventManager&, Grid&);
 
     void moveDown(entityx::EventManager&, Grid&);
@@ -32,11 +33,15 @@ private:
     void moveUp(entityx::EventManager&, Grid&);
     void performMove(entityx::EventManager&, Tile&, Tile&, const Direction);
 
+    void refreshAfterMoveFinished(Grid&);
     void spawnRandomTile(Grid&);
+    std::optional<GameResult> isGameOver(const Grid&) const;
+    void handleGameOver(entityx::EventManager&, const GameResult);
 
     std::mt19937 generator;
     std::vector<sf::Event::KeyEvent> moveEvents;
     std::optional<MoveFinished> moveFinishedEvent;
-    bool isInitialized;
+    bool initialized;
     bool moveAllowed;
+    bool gameOver;
 };

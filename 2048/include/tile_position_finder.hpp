@@ -28,7 +28,7 @@ namespace TilePositionFinder
 		return targetPosition;
 	}
 
-	std::size_t findRight(const std::size_t sourcePosition, const std::size_t rowIndex, const Tile& srcTile, std::vector<std::vector<Tile>>& tiles)
+	std::size_t findRight(const std::size_t sourcePosition, const std::size_t rowIndex, const Tile& srcTile, const std::vector<std::vector<Tile>>& tiles)
 	{
 		std::size_t targetPosition = sourcePosition;
 
@@ -50,7 +50,7 @@ namespace TilePositionFinder
 		return targetPosition;
 	}
 
-	std::size_t findLeft(const std::size_t sourcePosition, const std::size_t rowIndex, const Tile& srcTile, std::vector<std::vector<Tile>>& tiles)
+	std::size_t findLeft(const std::size_t sourcePosition, const std::size_t rowIndex, const Tile& srcTile, const std::vector<std::vector<Tile>>& tiles)
 	{
 		std::size_t targetPosition = sourcePosition;
 

@@ -1,37 +1,26 @@
-#pragma once
+#include "ecs_game.hpp"
+#include "draw_system.hpp"
+#include "logic_system.hpp"
+#include "animate_system.hpp"
+#include "grid.hpp"
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include "constants.hpp"
-
-class ResourcesManager
+EcsGame::EcsGame()
 {
-public:
-	sf::RenderWindow window;
+	systems.add<LogicSystem>();
+	systems.add<AnimateSystem>();
+	systems.add<DrawSystem>();
+	systems.configure();
+	entities.create().assign<Grid>();
+}
 
-	static ResourcesManager* get_instance()
-	{
-		if (!instance)
-			instance = new ResourcesManager();
-		return instance;
-	}
+void EcsGame::update(const entityx::TimeDelta dt)
+{
+	systems.update<LogicSystem>(dt);
+	systems.update<AnimateSystem>(dt);
+	systems.update<DrawSystem>(dt);
+}
 
-	static ResourcesManager& get_instance_ref()
-	{
-		return *get_instance();
-	}
-
-	static void delete_instance()
-	{
-		delete instance;
-	}
-
-private:
-	ResourcesManager() : window(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "2048 Game", sf::Style::Titlebar | sf::Style::Close) {}
-	ResourcesManager(const ResourcesManager&) = delete;
-	ResourcesManager& operator=(const ResourcesManager&) = delete;
-	ResourcesManager(ResourcesManager&&) = delete;
-	ResourcesManager& operator=(ResourcesManager&&) = delete;
-	~ResourcesManager() = default;
-
-	static inline ResourcesManager* instance = nullptr;
-};
+void EcsGame::handleKeyEvent(const sf::Event::KeyEvent& event)
+{
+	events.emit<sf::Event::KeyEvent>(event);
+}
