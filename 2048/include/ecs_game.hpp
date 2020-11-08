@@ -7,7 +7,7 @@
 class EcsGame : public entityx::EntityX
 {
 public:
-	EcsGame();
-	void update(const entityx::TimeDelta);
-	void handleKeyEvent(const sf::Event::KeyEvent&);
+    EcsGame();
+    void update(const entityx::TimeDelta);
+    void handleKeyEvent(const sf::Event::KeyEvent&);
 };

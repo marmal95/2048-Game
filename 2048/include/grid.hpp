@@ -9,16 +9,16 @@
 class Grid
 {
 public:
-	Grid();
+    Grid();
 
 private:
-	void prepareGrid();
-	void prepareTiles();
-	sf::Vector2f getTopLeftCornerPosition() const;
+    void prepareGrid();
+    void prepareTiles();
+    sf::Vector2f getTopLeftCornerPosition() const;
 
-	sf::RectangleShape grid;
-	std::vector<std::vector<Tile>> tiles;
+    sf::RectangleShape grid;
+    std::vector<std::vector<Tile>> tiles;
 
-	friend class LogicSystem;
-	friend class DrawSystem;
+    friend class LogicSystem;
+    friend class DrawSystem;
 };

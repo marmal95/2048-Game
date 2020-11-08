@@ -5,10 +5,10 @@
 
 struct MoveTrigger
 {
-	MoveTrigger(const Tile& srcTile, Tile& tgtTile, const Direction direction)
-		: srcTile{ srcTile }, tgtTile{ tgtTile }, direction{ direction } {}
+    MoveTrigger(const Tile& srcTile, Tile& tgtTile, const Direction direction)
+        : srcTile{ srcTile }, tgtTile{ tgtTile }, direction{ direction } {}
 
-	Tile srcTile{};
-	Tile& tgtTile;
-	Direction direction{};
+    Tile srcTile{};
+    Tile& tgtTile;
+    Direction direction{};
 };

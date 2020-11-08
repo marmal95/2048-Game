@@ -2,10 +2,10 @@
 
 enum class GameResult
 {
-	Won, Lost
+    Won, Lost
 };
 
 struct GameFinished
 {
-	GameResult result;
+    GameResult result;
 };
