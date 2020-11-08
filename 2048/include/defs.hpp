@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "tile_type.hpp"
 
-const auto WINDOW_SIZE = sf::Vector2i{ 600, 600 };
+const auto WINDOW_SIZE = sf::Vector2i{ 600, 680 };
 const auto GRID_SIZE = sf::Vector2f{ 500, 500 };
 const auto GRID_DIMENSION = sf::Vector2i{ 4, 4 };
 const auto TILE_SIZE = sf::Vector2f{ 122.5, 122.5 };

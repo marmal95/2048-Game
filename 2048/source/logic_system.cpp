@@ -1,11 +1,12 @@
 #include "logic_system.hpp"
 #include "grid.hpp"
+#include "info_panel.hpp"
 #include "move_trigger.hpp"
 #include "tile_position_finder.hpp"
 #include "game_finished.hpp"
 
 LogicSystem::LogicSystem()
-    : generator{ std::random_device{}() }, moveEvents{}, moveFinishedEvent{}, initialized{}, moveAllowed{}, gameOver{}
+    : generator{ std::random_device{}() }, moveEvents{}, moveFinishedEvent{}, score{}, initialized{}, moveAllowed{}, gameOver{}
 {}
 
 void LogicSystem::update(entityx::EntityManager& es, entityx::EventManager& events, entityx::TimeDelta dt)
@@ -49,18 +50,18 @@ void LogicSystem::initialize(entityx::EntityManager& es)
 
 void LogicSystem::update(entityx::EntityManager& es, entityx::EventManager& events)
 {
-    auto gridEntity = *es.entities_with_components<Grid>().begin();
-    auto gridComponent = gridEntity.component<Grid>();
+    auto gridComponent = (*es.entities_with_components<Grid>().begin()).component<Grid>();
+    auto infoPanelComponent = (*es.entities_with_components<InfoPanel>().begin()).component<InfoPanel>();
 
-    handleMoveFinishedEvent(events, *gridComponent);
+    handleMoveFinishedEvent(events, *gridComponent, *infoPanelComponent);
     handleMoveEvents(events, *gridComponent);
 }
 
-void LogicSystem::handleMoveFinishedEvent(entityx::EventManager& events, Grid& grid)
+void LogicSystem::handleMoveFinishedEvent(entityx::EventManager& events, Grid& grid, InfoPanel& infoPanel)
 {
     if (moveFinishedEvent)
     {
-        refreshAfterMoveFinished(grid);
+        refreshAfterMoveFinished(grid, infoPanel);
         spawnRandomTile(grid);
 
         if (!gameOver)
@@ -153,18 +154,23 @@ void LogicSystem::moveUp(entityx::EventManager& events, Grid& grid)
 
 void LogicSystem::performMove(entityx::EventManager& events, Tile& srcTile, Tile& tgtTile, const Direction direction)
 {
+    bool isScoredMerge = tgtTile.getType() == srcTile.getType();
     if (&srcTile == &tgtTile)
         return;
-
+    
     tgtTile.mergeWith(srcTile);
     events.emit<MoveTrigger>(srcTile, tgtTile, direction);
     srcTile.changeType(TileType::BLANK);
     srcTile.updateView();
+
     moveAllowed = false;
+    score = isScoredMerge ? score + tgtTile.getValue() : score;
 }
 
-void LogicSystem::refreshAfterMoveFinished(Grid& grid)
+void LogicSystem::refreshAfterMoveFinished(Grid& grid, InfoPanel& infoPanel)
 {
+    infoPanel.score.setString("Score: " + std::to_string(score));
+
     for (auto& row : grid.tiles)
     {
         for (auto& tile : row)
@@ -189,6 +195,8 @@ void LogicSystem::spawnRandomTile(Grid& grid)
         xIndex++;
     }
 
+    if (blankTiles.empty())
+        return;
 
     std::uniform_int_distribution<> distrib(0, static_cast<int>(blankTiles.size() - 1));
     auto randomTilePosition = distrib(generator);

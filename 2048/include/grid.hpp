@@ -6,15 +6,16 @@
 #include "defs.hpp"
 
 
-class Grid
+class Grid : public sf::Transformable
 {
 public:
     Grid();
+    void setPosition(const sf::Vector2f&);
 
 private:
     void prepareGrid();
     void prepareTiles();
-    sf::Vector2f getTopLeftCornerPosition() const;
+    void setTilesPosition(const sf::Vector2f&);
 
     sf::RectangleShape grid;
     std::vector<std::vector<Tile>> tiles;

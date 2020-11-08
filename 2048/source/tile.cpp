@@ -1,13 +1,14 @@
 #pragma once
 
 #include "tile.hpp"
+#include "resource_manager.hpp"
 
 Tile::Tile()
-    : shape{}, font{}, text{}, type{ TileType::BLANK }, mergeable{ true }
+    : shape{}, text{}, type{ TileType::BLANK }, mergeable{ true }
 {
     shape.setSize(TILE_SIZE);
-    font.loadFromFile("resource/ClearSans-Bold.ttf");
     text.setStyle(sf::Text::Bold);
+    text.setFont(ResourcesManager::get_instance().fontHolder.getResource(Font::MainFont));
     changeType(TileType::BLANK);
     updateView();
 }
@@ -16,12 +17,6 @@ void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(shape);
     target.draw(text);
-}
-
-void Tile::setOrigin(const sf::Vector2f& origin)
-{
-    Transformable::setOrigin(origin);
-    shape.setOrigin(origin);
 }
 
 void Tile::setPosition(const sf::Vector2f& position)
@@ -82,6 +77,11 @@ bool Tile::isMergeable() const
     return mergeable;
 }
 
+uint32_t Tile::getValue() const
+{
+    return static_cast<uint32_t>(getType());
+}
+
 void Tile::updateBackground()
 {
     shape.setFillColor(TILES_COLORS.at(getType()));
@@ -93,7 +93,6 @@ void Tile::updateText()
     {
         text.setString(std::to_string(static_cast<std::underlying_type_t<TileType>>(getType())));
         text.setFillColor(FONT_COLORS.at(getType()));
-        text.setFont(font);
         text.setCharacterSize(FONT_SIZES.at(getType()));
 
         const auto bounds = text.getLocalBounds();

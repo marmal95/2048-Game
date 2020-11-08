@@ -163,7 +163,9 @@
     <ClInclude Include="include\logic_system.hpp" />
     <ClInclude Include="include\move_finished.hpp" />
     <ClInclude Include="include\move_trigger.hpp" />
+    <ClInclude Include="include\resource_holder.hpp" />
     <ClInclude Include="include\resource_manager.hpp" />
+    <ClInclude Include="include\info_panel.hpp" />
     <ClInclude Include="include\tile.hpp" />
     <ClInclude Include="include\tile_position_finder.hpp" />
     <ClInclude Include="include\tile_type.hpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="source\draw_system.cpp" />
     <ClCompile Include="source\ecs_game.cpp" />
     <ClCompile Include="source\grid.cpp" />
+    <ClCompile Include="source\info_panel.cpp" />
     <ClCompile Include="source\logic_system.cpp" />
     <ClCompile Include="source\tile.cpp" />
   </ItemGroup>

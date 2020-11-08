@@ -3,6 +3,7 @@
 #include "logic_system.hpp"
 #include "animate_system.hpp"
 #include "grid.hpp"
+#include "info_panel.hpp"
 
 EcsGame::EcsGame()
 {
@@ -10,7 +11,16 @@ EcsGame::EcsGame()
     systems.add<AnimateSystem>();
     systems.add<DrawSystem>();
     systems.configure();
-    entities.create().assign<Grid>();
+
+    auto infoPanelEntity = entities.create().assign<InfoPanel>();
+    auto gridEntity = entities.create().assign<Grid>();
+
+    auto& infoPanel = *infoPanelEntity;
+    infoPanel.setSize({ GRID_SIZE.x, TILE_SIZE.y });
+    infoPanel.setPosition({ 50, 0 });
+
+    auto& grid = *gridEntity;
+    grid.setPosition({ 50, infoPanel.getPosition().y + infoPanel.getSize().y });
 }
 
 void EcsGame::update(const entityx::TimeDelta dt)

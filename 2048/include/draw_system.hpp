@@ -17,6 +17,5 @@ private:
     void handleGameOver();
 
     std::optional<GameFinished> gameFinishedEvent;
-    sf::Font font;
     sf::Text text;
 };

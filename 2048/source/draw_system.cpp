@@ -2,12 +2,12 @@
 #include "grid.hpp"
 #include "resource_manager.hpp"
 #include "animated.hpp"
+#include "info_panel.hpp"
 
 DrawSystem::DrawSystem()
-    : gameFinishedEvent{}, font{}, text{}
+    : gameFinishedEvent{}, text{}
 {
-    font.loadFromFile("resource/ClearSans-Bold.ttf");
-    text.setFont(font);
+    text.setFont(ResourcesManager::get_instance().fontHolder.getResource(Font::MainFont));
     text.setStyle(sf::Text::Bold);
     text.setCharacterSize(64);
     text.setFillColor(FONT_COLORS.at(TileType::VALUE_2));
@@ -16,13 +16,19 @@ DrawSystem::DrawSystem()
 void DrawSystem::update(entityx::EntityManager& es, entityx::EventManager& events, entityx::TimeDelta dt)
 {
     auto& window = ResourcesManager::get_instance().window;
-    es.each<Grid>([&](entityx::Entity entity, Grid& grid) {
-        window.draw(grid.grid);
-        for (const auto& gridRow : grid.tiles)
-            for (const auto& tile : gridRow)
-                window.draw(tile);
-        });
 
+    auto infoPanelEntity = *es.entities_with_components<InfoPanel>().begin();
+    auto& infoPanelComponent = *infoPanelEntity.component<InfoPanel>();
+    window.draw(infoPanelComponent);
+
+    auto gridEntity = *es.entities_with_components<Grid>().begin();
+    auto& gridComponent = *gridEntity.component<Grid>();
+
+    window.draw(gridComponent.grid);
+    for (const auto& gridRow : gridComponent.tiles)
+        for (const auto& tile : gridRow)
+            window.draw(tile);
+        
     es.each<Animated>([&](entityx::Entity entity, Animated& animated) {
         window.draw(animated.animatedTile);
         });

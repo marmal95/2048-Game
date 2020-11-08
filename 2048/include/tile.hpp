@@ -12,7 +12,6 @@ public:
     Tile();
 
     void draw(sf::RenderTarget&, sf::RenderStates) const override;
-    void setOrigin(const sf::Vector2f&);
     void setPosition(const sf::Vector2f&);
     void move(const sf::Vector2f&);
 
@@ -24,13 +23,13 @@ public:
 
     TileType getType() const;
     bool isMergeable() const;
+    uint32_t getValue() const;
 
 private:
     void updateBackground();
     void updateText();
 
     sf::RectangleShape shape;
-    sf::Font font;
     sf::Text text;
     TileType type;
     bool mergeable;

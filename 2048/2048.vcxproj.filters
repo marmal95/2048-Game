@@ -60,6 +60,12 @@
     <ClInclude Include="include\tile_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\resource_holder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\info_panel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\animate_system.cpp">
@@ -84,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\info_panel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

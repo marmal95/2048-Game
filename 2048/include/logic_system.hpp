@@ -11,6 +11,7 @@
 
 class Grid;
 class Tile;
+class InfoPanel;
 
 class LogicSystem : public entityx::System<LogicSystem>, public entityx::Receiver<LogicSystem>
 {
@@ -24,7 +25,7 @@ public:
 private:
     void initialize(entityx::EntityManager&);
     void update(entityx::EntityManager&, entityx::EventManager&);
-    void handleMoveFinishedEvent(entityx::EventManager&, Grid&);
+    void handleMoveFinishedEvent(entityx::EventManager&, Grid&, InfoPanel&);
     void handleMoveEvents(entityx::EventManager&, Grid&);
 
     void moveDown(entityx::EventManager&, Grid&);
@@ -33,7 +34,7 @@ private:
     void moveUp(entityx::EventManager&, Grid&);
     void performMove(entityx::EventManager&, Tile&, Tile&, const Direction);
 
-    void refreshAfterMoveFinished(Grid&);
+    void refreshAfterMoveFinished(Grid&, InfoPanel&);
     void spawnRandomTile(Grid&);
     std::optional<GameResult> isGameOver(const Grid&) const;
     void handleGameOver(entityx::EventManager&, const GameResult);
@@ -41,6 +42,7 @@ private:
     std::mt19937 generator;
     std::vector<sf::Event::KeyEvent> moveEvents;
     std::optional<MoveFinished> moveFinishedEvent;
+    uint32_t score;
     bool initialized;
     bool moveAllowed;
     bool gameOver;
